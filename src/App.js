@@ -966,7 +966,7 @@ export default function App(){
         <header className="lg:hidden bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
           <button onClick={()=>setSidebar(true)} className="p-1.5 hover:bg-gray-100 rounded-xl"><Menu size={20} className="text-gray-600"/></button>
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-indigo-600 rounded-lg flex items-center justify-center"><Shield size={13} className="text-white"/></div>
+            <div className="w-6 h-6 rounded-full overflow-hidden border border-indigo-200"><img src={LOGO} alt="Good Shepherd" className="w-full h-full object-cover"/></div>
             <span className="font-semibold text-gray-900 text-sm">{NAV.find(n=>n.id===page)?.label}</span>
           </div>
         </header>
