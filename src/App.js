@@ -119,8 +119,8 @@ const LoginPage = ({onLogin})=>{
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-indigo-900 to-purple-900 flex items-center justify-center p-4">
       <motion.div initial={{y:24,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:.5}} className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-white/10 backdrop-blur rounded-2xl border border-white/20 flex items-center justify-center mx-auto mb-4">
-            <Shield size={32} className="text-white"/>
+          <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white/30 mx-auto mb-4">
+            <img src={LOGO} alt="Good Shepherd" className="w-full h-full object-cover"/>
           </div>
           <h1 className="text-2xl font-bold text-white">Good Shepherd</h1>
           <p className="text-indigo-300 text-sm mt-1">Parish Youth Council · Finance System</p>
