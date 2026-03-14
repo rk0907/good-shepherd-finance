@@ -31,73 +31,8 @@ const PERMS = {
 const can = (role,action) => PERMS[role]?.includes(action);
 
 const USERS_DB = [
-  {id:1,name:'Kwame Asante',     email:'admin@goodshepherd.org',     role:'Admin',               password:'admin123',  joined:'2024-01-01',active:true},
-  {id:2,name:'John Mensah',      email:'finsec@goodshepherd.org',    role:'Financial Secretary', password:'finsec123', joined:'2024-01-05',active:true},
-  {id:3,name:'Mary Boateng',     email:'president@goodshepherd.org', role:'President',           password:'pres123',   joined:'2024-01-03',active:true},
-  {id:4,name:'Peter Owusu',      email:'auditor@goodshepherd.org',   role:'Auditor',             password:'audit123',  joined:'2024-01-10',active:true},
-  {id:5,name:'Grace Adjei',      email:'viewer@goodshepherd.org',    role:'Viewer',              password:'view123',   joined:'2024-02-01',active:true},
+  {id:1,name:'Reuben Pra-Obeng',email:'kobinapraobeng@gmail.com',role:'Admin',password:'admin123',joined:'2025-01-01',active:true},
 ];
-
-const SEED = (()=>{
-  const txns = [];
-  const inc = [
-    ['2025-01-05','Donations',1500,'Parish Members','January donations','John Mensah'],
-    ['2025-01-14','IGF',800,'Weekly Dues','January weekly dues','John Mensah'],
-    ['2025-01-27','Welfare Contributions',300,'Members','January welfare','John Mensah'],
-    ['2025-02-08','Fundraising',3200,'Valentine Dinner','Valentine fundraiser event','John Mensah'],
-    ['2025-02-16','IGF',750,'Product Sales','Merchandise sales Feb','John Mensah'],
-    ['2025-02-24','Donations',500,'Anonymous','Anonymous donation','Mary Boateng'],
-    ['2025-03-09','Special Offering',2100,'Easter Collection','Easter special offering','Mary Boateng'],
-    ['2025-03-19','IGF',1200,'Catering Services','Parish event catering','John Mensah'],
-    ['2025-03-29','Event Income',900,'Youth Night','Youth night proceeds','John Mensah'],
-    ['2025-04-06','Event Income',1800,'Youth Concert','Annual youth concert','John Mensah'],
-    ['2025-04-21','Welfare Contributions',600,'Members','Q2 welfare contribution','John Mensah'],
-    ['2025-05-04','Donations',900,'Anonymous','Anonymous donation May','Mary Boateng'],
-    ['2025-05-15','IGF',980,'Photography','Event photography income','John Mensah'],
-    ['2025-05-29','Fundraising',1500,'Bake Sale','Bake sale proceeds','John Mensah'],
-    ['2025-06-07','Fundraising',4500,'Charity Walk','Annual walkathon','John Mensah'],
-    ['2025-06-21','Event Income',1200,'Youth Dinner','Mid-year dinner proceeds','John Mensah'],
-    ['2025-06-29','IGF',650,'Event Tickets','Concert ticket sales','John Mensah'],
-    ['2025-07-05','Special Offering',800,'Special Collection','July special offering','Mary Boateng'],
-    ['2025-07-20','IGF',720,'Weekly Dues','July weekly dues','John Mensah'],
-    ['2025-08-03','Donations',1100,'Parish Members','August donations','John Mensah'],
-    ['2025-08-18','IGF',540,'Raffle Draw','August raffle proceeds','John Mensah'],
-    ['2025-09-02','Fundraising',2800,'Harvest Dinner','Harvest celebration dinner','John Mensah'],
-    ['2025-09-17','IGF',880,'Merchandise','Youth merch sales','John Mensah'],
-    ['2025-10-05','Special Offering',1600,'Anniversary Collection','Anniversary offering','Mary Boateng'],
-  ];
-  const exp = [
-    ['2025-01-11','Transport',350,'Retreat transportation','Mary Boateng','John Mensah'],
-    ['2025-01-22','Miscellaneous',200,'Office supplies','Mary Boateng','John Mensah'],
-    ['2025-02-11','Event',1500,'Valentine dinner expenses','Mary Boateng','John Mensah'],
-    ['2025-02-19','Media',600,'Flyers and banners','Mary Boateng','John Mensah'],
-    ['2025-03-06','Welfare',800,'Member hospital support','Mary Boateng','John Mensah'],
-    ['2025-03-16','Equipment',1200,'Sound equipment rental','Mary Boateng','John Mensah'],
-    ['2025-04-09','Event',900,'Concert setup costs','Mary Boateng','John Mensah'],
-    ['2025-04-23','Transport',250,'Members transport support','Mary Boateng','John Mensah'],
-    ['2025-05-09','Miscellaneous',150,'Stationery items','Mary Boateng','John Mensah'],
-    ['2025-05-21','Welfare',500,'Bereaved member support','Mary Boateng','John Mensah'],
-    ['2025-06-11','Event',2000,'Mid-year dinner costs','Mary Boateng','John Mensah'],
-    ['2025-06-26','Media',800,'Social media promotion','Mary Boateng','John Mensah'],
-    ['2025-07-14','Equipment',450,'Projector rental','Mary Boateng','John Mensah'],
-    ['2025-07-30','Transport',180,'Funeral support transport','Mary Boateng','John Mensah'],
-    ['2025-08-06','Welfare',650,'Medical support - member','Mary Boateng','John Mensah'],
-    ['2025-08-22','Event',1100,'Back-to-school party','Mary Boateng','John Mensah'],
-    ['2025-09-10','Media',550,'Harvest dinner promotion','Mary Boateng','John Mensah'],
-    ['2025-09-25','Equipment',780,'Stage setup rental','Mary Boateng','John Mensah'],
-    ['2025-10-08','Event',1300,'Anniversary event costs','Mary Boateng','John Mensah'],
-    ['2025-10-19','Welfare',420,'Emergency welfare fund','Mary Boateng','John Mensah'],
-  ];
-  inc.forEach(([date,cat,amount,source,desc,by],i)=>txns.push({
-    id:`TXN${String(i+1).padStart(5,'0')}`,type:'income',category:cat,amount,source,
-    description:desc,receivedBy:by,date,timestamp:new Date(date).toISOString(),editHistory:[],
-  }));
-  exp.forEach(([date,cat,amount,desc,approvedBy,paidBy],i)=>txns.push({
-    id:`TXN${String(inc.length+i+1).padStart(5,'0')}`,type:'expense',category:cat,amount,
-    description:desc,approvedBy,paidBy,date,timestamp:new Date(date).toISOString(),receipt:null,editHistory:[],
-  }));
-  return txns.sort((a,b)=>new Date(a.date)-new Date(b.date));
-})();
 
 const Card = ({children,className=''})=>(
   <div className={`bg-white rounded-2xl shadow-sm border border-gray-100 ${className}`}>{children}</div>
@@ -218,18 +153,6 @@ const LoginPage = ({onLogin})=>{
               {loading?'Signing in…':'Sign In →'}
             </button>
           </form>
-          <div className="mt-6 pt-5 border-t border-white/10">
-            <p className="text-indigo-300 text-xs text-center font-medium mb-3">Quick Demo Login</p>
-            <div className="grid grid-cols-2 gap-2">
-              {USERS_DB.map(u=>(
-                <button key={u.id} onClick={()=>{setEmail(u.email);setPass(u.password);}}
-                  className="text-left bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl px-3 py-2 transition-all">
-                  <p className="text-white text-xs font-semibold truncate">{u.name.split(' ')[0]}</p>
-                  <p className="text-indigo-300 text-xs truncate">{u.role}</p>
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </motion.div>
     </div>
@@ -247,9 +170,10 @@ const Dashboard = ({transactions,user})=>{
   const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const monthly = months.map((m,i)=>{
     const mo=String(i+1).padStart(2,'0');
-    const inc=income.filter(t=>t.date?.startsWith(`2025-${mo}`)).reduce((s,t)=>s+t.amount,0);
-    const exp=expenses.filter(t=>t.date?.startsWith(`2025-${mo}`)).reduce((s,t)=>s+t.amount,0);
-    const ig=igf.filter(t=>t.date?.startsWith(`2025-${mo}`)).reduce((s,t)=>s+t.amount,0);
+    const yr=new Date().getFullYear();
+    const inc=income.filter(t=>t.date?.startsWith(`${yr}-${mo}`)).reduce((s,t)=>s+t.amount,0);
+    const exp=expenses.filter(t=>t.date?.startsWith(`${yr}-${mo}`)).reduce((s,t)=>s+t.amount,0);
+    const ig=igf.filter(t=>t.date?.startsWith(`${yr}-${mo}`)).reduce((s,t)=>s+t.amount,0);
     return{month:m,income:inc,expenses:exp,igf:ig,net:inc-exp};
   });
   const expByCat = EXPENSE_CATS.map(c=>({name:c,value:expenses.filter(t=>t.category===c).reduce((s,t)=>s+t.amount,0)})).filter(c=>c.value>0);
@@ -270,6 +194,12 @@ const Dashboard = ({transactions,user})=>{
           </div>
         </div>
       )}
+      {transactions.length===0&&(
+        <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-6 text-center">
+          <p className="text-indigo-700 font-semibold">No transactions yet</p>
+          <p className="text-indigo-400 text-sm mt-1">Start by recording your first income or expense entry.</p>
+        </div>
+      )}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Current Balance" value={GHS(balance)} sub={balance>=0?'Healthy surplus':'Action needed'} icon={Wallet} iconBg="bg-indigo-50 text-indigo-600" trend={balance>=0?'up':'down'}/>
         <StatCard title="Total Income"    value={GHS(totalIncome)}  sub={`${income.length} entries`}   icon={TrendingUp}   iconBg="bg-emerald-50 text-emerald-600" trend="up"/>
@@ -278,7 +208,7 @@ const Dashboard = ({transactions,user})=>{
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Income vs Expenses — 2025</h3>
+          <h3 className="font-semibold text-gray-900 mb-4">Income vs Expenses — {new Date().getFullYear()}</h3>
           <ResponsiveContainer width="100%" height={210}>
             <BarChart data={monthly} barSize={14} barGap={3}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false}/>
@@ -293,25 +223,29 @@ const Dashboard = ({transactions,user})=>{
         </Card>
         <Card className="p-6">
           <h3 className="font-semibold text-gray-900 mb-4">Expense Breakdown</h3>
-          <ResponsiveContainer width="100%" height={140}>
-            <PieChart>
-              <Pie data={expByCat} cx="50%" cy="50%" innerRadius={40} outerRadius={65} paddingAngle={3} dataKey="value">
-                {expByCat.map((_,i)=><Cell key={i} fill={COLORS[i%COLORS.length]}/>)}
-              </Pie>
-              <Tooltip formatter={v=>GHS(v)} contentStyle={{borderRadius:12,border:'1px solid #e5e7eb',fontSize:11}}/>
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="space-y-1.5 mt-1">
-            {expByCat.map((item,i)=>(
-              <div key={i} className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{background:COLORS[i%COLORS.length]}}/>
-                  <span className="text-xs text-gray-500">{item.name}</span>
-                </div>
-                <span className="text-xs font-semibold text-gray-700">{GHS(item.value)}</span>
+          {expByCat.length===0?<p className="text-gray-400 text-sm text-center py-10">No expenses yet</p>:(
+            <>
+              <ResponsiveContainer width="100%" height={140}>
+                <PieChart>
+                  <Pie data={expByCat} cx="50%" cy="50%" innerRadius={40} outerRadius={65} paddingAngle={3} dataKey="value">
+                    {expByCat.map((_,i)=><Cell key={i} fill={COLORS[i%COLORS.length]}/>)}
+                  </Pie>
+                  <Tooltip formatter={v=>GHS(v)} contentStyle={{borderRadius:12,border:'1px solid #e5e7eb',fontSize:11}}/>
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="space-y-1.5 mt-1">
+                {expByCat.map((item,i)=>(
+                  <div key={i} className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{background:COLORS[i%COLORS.length]}}/>
+                      <span className="text-xs text-gray-500">{item.name}</span>
+                    </div>
+                    <span className="text-xs font-semibold text-gray-700">{GHS(item.value)}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </Card>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -338,24 +272,26 @@ const Dashboard = ({transactions,user})=>{
             <h3 className="font-semibold text-gray-900">Recent Transactions</h3>
             <span className="text-xs text-gray-400">{recent.length} records</span>
           </div>
-          <div className="space-y-2.5 overflow-y-auto max-h-44">
-            {recent.map(t=>(
-              <div key={t.id} className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${t.type==='income'?'bg-emerald-50':'bg-red-50'}`}>
-                    {t.type==='income'?<ArrowUpRight size={13} className="text-emerald-600"/>:<ArrowDownRight size={13} className="text-red-500"/>}
+          {recent.length===0?<p className="text-gray-400 text-sm text-center py-10">No transactions yet</p>:(
+            <div className="space-y-2.5 overflow-y-auto max-h-44">
+              {recent.map(t=>(
+                <div key={t.id} className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${t.type==='income'?'bg-emerald-50':'bg-red-50'}`}>
+                      {t.type==='income'?<ArrowUpRight size={13} className="text-emerald-600"/>:<ArrowDownRight size={13} className="text-red-500"/>}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-medium text-gray-800 truncate">{t.description}</p>
+                      <p className="text-xs text-gray-400">{t.category} · {fmtDate(t.date)}</p>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-medium text-gray-800 truncate">{t.description}</p>
-                    <p className="text-xs text-gray-400">{t.category} · {fmtDate(t.date)}</p>
-                  </div>
+                  <span className={`text-xs font-bold shrink-0 ${t.type==='income'?'text-emerald-600':'text-red-500'}`}>
+                    {t.type==='income'?'+':'-'}{GHS(t.amount)}
+                  </span>
                 </div>
-                <span className={`text-xs font-bold shrink-0 ${t.type==='income'?'text-emerald-600':'text-red-500'}`}>
-                  {t.type==='income'?'+':'-'}{GHS(t.amount)}
-                </span>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </Card>
       </div>
     </div>
@@ -416,7 +352,7 @@ const IncomePage = ({transactions,onAdd,onEdit,onDelete,user})=>{
               ))}
             </tr></thead>
             <tbody>
-              {filtered.length===0?(<tr><td colSpan={8} className="px-4 py-10 text-center text-gray-400 text-sm">No income records found</td></tr>)
+              {filtered.length===0?(<tr><td colSpan={8} className="px-4 py-10 text-center text-gray-400 text-sm">No income records yet — tap Record Income to add one</td></tr>)
               :filtered.map(t=>(
                 <tr key={t.id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                   <td className="px-4 py-3 font-mono text-xs text-gray-400">{t.id}</td>
@@ -516,7 +452,7 @@ const ExpensePage = ({transactions,onAdd,onEdit,onDelete,user})=>{
               ))}
             </tr></thead>
             <tbody>
-              {filtered.length===0?(<tr><td colSpan={8} className="px-4 py-10 text-center text-gray-400">No expense records found</td></tr>)
+              {filtered.length===0?(<tr><td colSpan={8} className="px-4 py-10 text-center text-gray-400">No expense records yet — tap Record Expense to add one</td></tr>)
               :filtered.map(t=>(
                 <tr key={t.id} className={`border-b border-gray-50 hover:bg-gray-50/50 transition-colors ${t.amount>=1000?'bg-amber-50/30':''}`}>
                   <td className="px-4 py-3 font-mono text-xs text-gray-400">{t.id}</td>
@@ -571,7 +507,7 @@ const IGFPage = ({transactions,onAdd,onDelete,user})=>{
   const igf=transactions.filter(t=>t.type==='income'&&t.category==='IGF');
   const total=igf.reduce((s,t)=>s+t.amount,0);
   const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const monthly=months.map((m,i)=>{const mo=String(i+1).padStart(2,'0');return{month:m,amount:igf.filter(t=>t.date?.startsWith(`2025-${mo}`)).reduce((s,t)=>s+t.amount,0)};});
+  const monthly=months.map((m,i)=>{const mo=String(i+1).padStart(2,'0');const yr=new Date().getFullYear();return{month:m,amount:igf.filter(t=>t.date?.startsWith(`${yr}-${mo}`)).reduce((s,t)=>s+t.amount,0)};});
   const bySrc=IGF_SOURCES.map(s=>({name:s,value:igf.filter(t=>t.source===s).reduce((sum,t)=>sum+t.amount,0)})).filter(s=>s.value>0).sort((a,b)=>b.value-a.value);
   const submit=e=>{
     e.preventDefault();
@@ -630,7 +566,7 @@ const IGFPage = ({transactions,onAdd,onDelete,user})=>{
               ))}
             </tr></thead>
             <tbody>
-              {igf.length===0?(<tr><td colSpan={7} className="px-4 py-10 text-center text-gray-400">No IGF records yet</td></tr>)
+              {igf.length===0?(<tr><td colSpan={7} className="px-4 py-10 text-center text-gray-400">No IGF records yet — tap Record IGF to add one</td></tr>)
               :igf.map(t=>(
                 <tr key={t.id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                   <td className="px-4 py-3 font-mono text-xs text-gray-400">{t.id}</td>
@@ -728,7 +664,7 @@ const TransactionsPage = ({transactions})=>{
               ))}
             </tr></thead>
             <tbody>
-              {filtered.length===0?(<tr><td colSpan={7} className="px-4 py-10 text-center text-gray-400">No transactions match your filters</td></tr>)
+              {filtered.length===0?(<tr><td colSpan={7} className="px-4 py-10 text-center text-gray-400">No transactions yet</td></tr>)
               :filtered.map(t=>(
                 <tr key={t.id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                   <td className="px-4 py-3 font-mono text-xs text-gray-400">{t.id}</td>
@@ -763,9 +699,9 @@ const ReportsPage = ({transactions})=>{
   const bal      = totalInc-totalExp;
   const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const monthly=months.map((m,i)=>{
-    const mo=String(i+1).padStart(2,'0');
-    const inc=income.filter(t=>t.date?.startsWith(`2025-${mo}`)).reduce((s,t)=>s+t.amount,0);
-    const exp=expenses.filter(t=>t.date?.startsWith(`2025-${mo}`)).reduce((s,t)=>s+t.amount,0);
+    const mo=String(i+1).padStart(2,'0');const yr=new Date().getFullYear();
+    const inc=income.filter(t=>t.date?.startsWith(`${yr}-${mo}`)).reduce((s,t)=>s+t.amount,0);
+    const exp=expenses.filter(t=>t.date?.startsWith(`${yr}-${mo}`)).reduce((s,t)=>s+t.amount,0);
     return{month:m,income:inc,expenses:exp,net:inc-exp};
   });
   const incByCat=INCOME_CATS.map(c=>({name:c,value:income.filter(t=>t.category===c).reduce((s,t)=>s+t.amount,0),count:income.filter(t=>t.category===c).length})).filter(c=>c.value>0).sort((a,b)=>b.value-a.value);
@@ -774,7 +710,7 @@ const ReportsPage = ({transactions})=>{
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Financial Reports</h1>
-        <p className="text-gray-400 text-sm">2025 Annual Summary — Good Shepherd Parish Youth Council</p>
+        <p className="text-gray-400 text-sm">{new Date().getFullYear()} Annual Summary — Good Shepherd Parish Youth Council</p>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
@@ -791,7 +727,7 @@ const ReportsPage = ({transactions})=>{
       </div>
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-gray-900">Monthly Financial Summary 2025</h3>
+          <h3 className="font-semibold text-gray-900">Monthly Summary {new Date().getFullYear()}</h3>
           <Btn variant="outline" size="sm" onClick={()=>exportCSV([['Month','Income','Expenses','Net'],...monthly.map(m=>[m.month,m.income,m.expenses,m.net])],'monthly-report.csv')}>
             <Download size={14}/>Export
           </Btn>
@@ -812,40 +748,40 @@ const ReportsPage = ({transactions})=>{
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-gray-900">Income by Category</h3>
-            <Btn variant="outline" size="sm" onClick={()=>exportCSV([['Category','Total','Transactions'],...incByCat.map(i=>[i.name,i.value,i.count])],'income-breakdown.csv')}>
-              <Download size={14}/>Export
-            </Btn>
+            <Btn variant="outline" size="sm" onClick={()=>exportCSV([['Category','Total','Transactions'],...incByCat.map(i=>[i.name,i.value,i.count])],'income-breakdown.csv')}><Download size={14}/>Export</Btn>
           </div>
-          <div className="space-y-2.5">
-            {incByCat.map((item,i)=>(
-              <div key={item.name}>
-                <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="flex items-center gap-2 text-gray-700"><div className="w-2.5 h-2.5 rounded-full shrink-0" style={{background:COLORS[i%COLORS.length]}}/>{item.name} <span className="text-gray-400 text-xs">({item.count})</span></span>
-                  <span className="font-semibold text-emerald-600">{GHS(item.value)}</span>
+          {incByCat.length===0?<p className="text-gray-400 text-sm text-center py-10">No income data yet</p>:(
+            <div className="space-y-2.5">
+              {incByCat.map((item,i)=>(
+                <div key={item.name}>
+                  <div className="flex items-center justify-between text-sm mb-1">
+                    <span className="flex items-center gap-2 text-gray-700"><div className="w-2.5 h-2.5 rounded-full shrink-0" style={{background:COLORS[i%COLORS.length]}}/>{item.name} <span className="text-gray-400 text-xs">({item.count})</span></span>
+                    <span className="font-semibold text-emerald-600">{GHS(item.value)}</span>
+                  </div>
+                  <div className="h-1.5 bg-gray-100 rounded-full"><div className="h-full rounded-full" style={{width:`${(item.value/incByCat[0].value)*100}%`,background:COLORS[i%COLORS.length]}}/></div>
                 </div>
-                <div className="h-1.5 bg-gray-100 rounded-full"><div className="h-full rounded-full" style={{width:`${(item.value/incByCat[0].value)*100}%`,background:COLORS[i%COLORS.length]}}/></div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </Card>
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-gray-900">Expenses by Category</h3>
-            <Btn variant="outline" size="sm" onClick={()=>exportCSV([['Category','Total','Transactions'],...expByCat.map(i=>[i.name,i.value,i.count])],'expense-breakdown.csv')}>
-              <Download size={14}/>Export
-            </Btn>
+            <Btn variant="outline" size="sm" onClick={()=>exportCSV([['Category','Total','Transactions'],...expByCat.map(i=>[i.name,i.value,i.count])],'expense-breakdown.csv')}><Download size={14}/>Export</Btn>
           </div>
-          <div className="space-y-2.5">
-            {expByCat.map((item,i)=>(
-              <div key={item.name}>
-                <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="flex items-center gap-2 text-gray-700"><div className="w-2.5 h-2.5 rounded-full shrink-0" style={{background:COLORS[i%COLORS.length]}}/>{item.name} <span className="text-gray-400 text-xs">({item.count})</span></span>
-                  <span className="font-semibold text-red-500">{GHS(item.value)}</span>
+          {expByCat.length===0?<p className="text-gray-400 text-sm text-center py-10">No expense data yet</p>:(
+            <div className="space-y-2.5">
+              {expByCat.map((item,i)=>(
+                <div key={item.name}>
+                  <div className="flex items-center justify-between text-sm mb-1">
+                    <span className="flex items-center gap-2 text-gray-700"><div className="w-2.5 h-2.5 rounded-full shrink-0" style={{background:COLORS[i%COLORS.length]}}/>{item.name} <span className="text-gray-400 text-xs">({item.count})</span></span>
+                    <span className="font-semibold text-red-500">{GHS(item.value)}</span>
+                  </div>
+                  <div className="h-1.5 bg-gray-100 rounded-full"><div className="h-full rounded-full" style={{width:`${(item.value/expByCat[0].value)*100}%`,background:COLORS[i%COLORS.length]}}/></div>
                 </div>
-                <div className="h-1.5 bg-gray-100 rounded-full"><div className="h-full rounded-full" style={{width:`${(item.value/expByCat[0].value)*100}%`,background:COLORS[i%COLORS.length]}}/></div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </Card>
       </div>
     </div>
@@ -921,7 +857,7 @@ const UsersPage = ({users,currentUser,onAddUser,onToggleUser})=>{
                   <td className="px-3 py-2.5"><Badge label={role} className={ROLE_COLORS[role]||'bg-gray-100 text-gray-500 border-gray-200'}/></td>
                   {['view','add','delete','approve','users','reports'].map(p=>(
                     <td key={p} className="px-3 py-2.5">
-                      {perms.includes(p)||perms.includes('edit')&&p==='add'
+                      {(perms.includes(p)||(perms.includes('edit')&&p==='add'))
                         ?<CheckCircle size={15} className="text-emerald-500"/>
                         :<X size={15} className="text-gray-300"/>}
                     </td>
@@ -963,7 +899,7 @@ const NAV = [
 export default function App(){
   const [user,    setUser]    = useState(null);
   const [page,    setPage]    = useState('dashboard');
-  const [txns,    setTxns]    = useState(SEED);
+  const [txns,    setTxns]    = useState([]);
   const [users,   setUsers]   = useState(USERS_DB);
   const [sidebar, setSidebar] = useState(false);
 
