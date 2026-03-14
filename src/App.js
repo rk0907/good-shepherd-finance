@@ -929,8 +929,8 @@ export default function App(){
       <aside className={`fixed lg:static inset-y-0 left-0 z-30 w-60 bg-white border-r border-gray-100 flex flex-col shadow-xl lg:shadow-none transform transition-transform duration-300 ${sidebar?'translate-x-0':'-translate-x-full lg:translate-x-0'}`}>
         <div className="p-5 border-b border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shrink-0">
-              <Shield size={17} className="text-white"/>
+            <div className="w-9 h-9 rounded-full overflow-hidden shrink-0 border-2 border-indigo-200">
+              <img src={LOGO} alt="Good Shepherd" className="w-full h-full object-cover"/>
             </div>
             <div>
               <p className="font-bold text-gray-900 text-sm leading-tight">Good Shepherd</p>
