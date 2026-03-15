@@ -900,15 +900,20 @@ const NAV = [
 export default function App(){
   const [user,    setUser]    = useState(null);
   const [page,    setPage]    = useState('dashboard');
-  const [txns,    setTxns]    = useState([]);
-  const [users,   setUsers]   = useState(USERS_DB);
+  const [txns, setTxns] = useState(()=>{
+    try{const s=localStorage.getItem('gs_txns');return s?JSON.parse(s):[];}catch{return [];}
+  });
+  const [users, setUsers] = useState(()=>{
+    try{const s=localStorage.getItem('gs_users');return s?JSON.parse(s):USERS_DB;}catch{return USERS_DB;}
+  });
   const [sidebar, setSidebar] = useState(false);
 
   if(!user) return <LoginPage onLogin={u=>{ setUser(u); setPage('dashboard'); }}/>;
 
-  const add  = t => setTxns(p=>[...p,t]);
-  const edit = t => setTxns(p=>p.map(x=>x.id===t.id?t:x));
-  const del  = id => setTxns(p=>p.filter(t=>t.id!==id));
+  const save = t => localStorage.setItem('gs_txns',JSON.stringify(t));
+  const add  = t => setTxns(p=>{const n=[...p,t];save(n);return n;});
+  const edit = t => setTxns(p=>{const n=p.map(x=>x.id===t.id?t:x);save(n);return n;});
+  const del  = id => setTxns(p=>{const n=p.filter(t=>t.id!==id);save(n);return n;});
   const props = {transactions:txns,user,onAdd:add,onEdit:edit,onDelete:del};
 
   const pages = {
@@ -919,7 +924,7 @@ export default function App(){
     transactions: <TransactionsPage transactions={txns} user={user}/>,
     reports:      <ReportsPage  transactions={txns}/>,
     users:        <UsersPage    users={users} currentUser={user}
-                    onAddUser={u=>setUsers(p=>[...p,u])}
+                    onAddUser={u=>setUsers(p=>{const n=[...p,u];localStorage.setItem('gs_users',JSON.stringify(n));return n;})}
                     onToggleUser={id=>setUsers(p=>p.map(u=>u.id===id?{...u,active:!u.active}:u))}/>,
   };
 
